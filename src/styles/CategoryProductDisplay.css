@@ -1,0 +1,9 @@
+.list-item-3d {
+    position: relative;
+    perspective: 1000px;
+    transition: transform 0.5s;
+}
+
+.list-item-3d:hover {
+    transform: rotateY(10deg);
+}
