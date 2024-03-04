@@ -72,7 +72,7 @@ function CategoryDisplay() {
         setPaymentAmount(totalAmount);
     
         const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+        const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' '); // Format YYYY-MM-DD HH:MM:SS
     
         const paymentData = {
             montant: totalAmount,
@@ -101,18 +101,23 @@ function CategoryDisplay() {
         })
         .catch(error => console.error('Erreur lors de l\'enregistrement du paiement:', error));
     };
+    
 
     return (
         <div className="container">
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                     <Paper elevation={3} style={{ padding: '20px' }}>
-                        <Typography variant="h5" gutterBottom style={{ marginBottom: '20px' }}>Liste des Catégories</Typography>
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
+                    Catégories
+      </Typography>
                         <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
                     </Paper>
                 </Grid>
                 <Grid item xs={4}>
-                    <Typography variant="h5" gutterBottom>Produits</Typography>
+                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
+        Produits
+      </Typography>
                     <ProductList
                         products={products}
                         selectedCategory={selectedCategory}

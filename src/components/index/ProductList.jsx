@@ -1,6 +1,6 @@
 import React from 'react';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Slide, Paper } from '@material-ui/core';
-import { AddShoppingCart as AddShoppingCartIcon } from '@material-ui/icons';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Slide, Paper, Typography } from '@mui/material';
+import { AddShoppingCart as AddShoppingCartIcon } from '@mui/icons-material';
 
 function ProductList({ products, selectedCategory, productsVisible, selectedProduct, handleProductSelect, handleAddToCart }) {
     return (
@@ -9,20 +9,26 @@ function ProductList({ products, selectedCategory, productsVisible, selectedProd
                 .filter(product => selectedCategory === null || product.categorie_id === selectedCategory)
                 .map(product => (
                     <Slide direction="left" in={productsVisible} key={product.id}>
-                        <Paper style={{ backgroundColor: '#f0f0f0', margin: '10px', padding: '10px' }}>
-                            <ListItem 
-                                button
-                                selected={selectedProduct === product.id}
-                                onClick={() => handleProductSelect(product.id)}
-                            >
+                        <Paper elevation={3} style={{ backgroundColor: '#f0f0f0', margin: '10px', padding: '10px', borderRadius: '8px', boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.1)' }}>
+                            <ListItem button selected={selectedProduct === product.id} onClick={() => handleProductSelect(product.id)}>
                                 <ListItemText 
-                                    primary={product.nom} 
-                                    secondary={`Prix: ${product.prix_unitaire} € - Catégorie: ${product.categorie_id ? product.categorie_id : 'Non spécifiée'}`}
+                                    primary={
+                                        <Typography variant="h6" style={{ fontWeight: 'bold' }}>
+                                            {product.nom}
+                                        </Typography>
+                                    } 
+                                    secondary={
+                                        <Typography variant="body2" style={{ color: '#666' }}>
+                                            Prix: {product.prix_unitaire} € - Catégorie: {product.categorie_id ? product.categorie_id : 'Non spécifiée'}
+                                        </Typography>
+                                    } 
                                 />
                                 {selectedProduct === product.id && (
-                                    <IconButton edge="end" aria-label="add to cart" onClick={handleAddToCart} style={{ color: 'green' }}>
-                                        <AddShoppingCartIcon />
-                                    </IconButton>
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" aria-label="add to cart" onClick={() => handleAddToCart(product.id)} style={{ color: 'green' }}>
+                                            <AddShoppingCartIcon />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
                                 )}
                             </ListItem>
                         </Paper>

@@ -1,31 +1,21 @@
 import React from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Badge } from 'react-bootstrap';
+import { BsPencil, BsTrash } from 'react-icons/bs'; // Importez les icônes de React Icons
 
-function ProductTable({ products, setProducts, handleEdit }) {
-    const handleDelete = (id) => {
-        fetch(`http://127.0.0.1:8000/produits/${id}`, {
-            method: 'DELETE',
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Product deleted successfully');
-                    // Mettre à jour la liste des produits après la suppression
-                    setProducts(products.filter(product => product.id !== id));
-                } else {
-                    console.error('Error deleting product');
-                }
-            })
-            .catch(error => console.error('Error deleting product:', error));
+function ProductTable({ products, setProducts, handleEdit, handleDelete, categories }) {
+    // Fonction pour obtenir le nom de la catégorie par ID
+    const getCategoryNameById = (categoryId) => {
+        const category = categories.find(category => category.id === categoryId);
+        return category ? category.nom : 'N/A';
     };
 
     return (
-        
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
-                    <th>Description</th>
+                    <th>Catégorie</th>
                     <th>Prix Unitaire</th>
                     <th>Quantité en Stock</th>
                     <th>Actions</th>
@@ -36,12 +26,20 @@ function ProductTable({ products, setProducts, handleEdit }) {
                     <tr key={product.id}>
                         <td>{product.id}</td>
                         <td>{product.nom}</td>
-                        <td>{product.categorie_id}</td>
+                        <td>{getCategoryNameById(product.categorie_id)}</td>
                         <td>{product.prix_unitaire}</td>
-                        <td>{product.quantite_en_stock}</td>
                         <td>
-                            <Button variant="info" onClick={() => handleEdit(product.id)}>Modifier</Button>{' '}
-                            <Button variant="danger" onClick={() => handleDelete(product.id)}>Supprimer</Button>
+                            <Badge pill variant={product.quantite_en_stock > 0 ? 'success' : 'danger'}>
+                                {product.quantite_en_stock}
+                            </Badge>
+                        </td>
+                        <td>
+                            <Button variant="info" size="sm" onClick={() => handleEdit(product.id)}>
+                                <BsPencil /> {/* Utilisez l'icône pour modifier */}
+                            </Button>{' '}
+                            <Button variant="danger" size="sm" onClick={() => handleDelete(product.id)}>
+                                <BsTrash /> {/* Utilisez l'icône pour supprimer */}
+                            </Button>
                         </td>
                     </tr>
                 ))}

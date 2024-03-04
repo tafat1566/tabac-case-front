@@ -10,13 +10,15 @@ function ProductSender() {
         prix_unitaire: '',
         quantite_en_stock: '',
         fournisseur_id: '',
-        categorie_id:''
+        categorie_id: ''
     });
     const [products, setProducts] = useState([]);
     const [selectedProductId, setSelectedProductId] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         fetchProducts();
+        fetchCategories();
     }, []);
 
     const fetchProducts = () => {
@@ -24,6 +26,13 @@ function ProductSender() {
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error('Error fetching products:', error));
+    };
+
+    const fetchCategories = () => {
+        fetch('http://127.0.0.1:8000/categories')
+            .then(response => response.json())
+            .then(data => setCategories(data))
+            .catch(error => console.error('Error fetching categories:', error));
     };
 
     const handleClose = () => {
@@ -77,9 +86,14 @@ function ProductSender() {
             .catch(error => console.error('Error sending data:', error));
     };
 
+    // Attendre que les catégories soient chargées avant de rendre le composant ProductTable
+    if (categories.length === 0) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <div >
-            <Button variant="primary" onClick={handleShow}>Créer un produit</Button>
+        <div>
+<Button variant="success" onClick={handleShow}>Créer un produit</Button>
 
             <ProductModal
                 show={showModal}
@@ -87,10 +101,12 @@ function ProductSender() {
                 handleSubmit={sendData}
                 formData={formData}
                 handleChange={handleChange}
+                categories={categories}
             />
 
-            <ProductTable products={products} setProducts={setProducts} handleEdit={handleEdit} /> {/* Utilisation du composant ProductTable */}
+            <ProductTable products={products} setProducts={setProducts} handleEdit={handleEdit} categories={categories} /> {/* Utilisation du composant ProductTable */}
         </div>
     );
 }
+
 export default ProductSender;

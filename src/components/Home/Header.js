@@ -1,4 +1,3 @@
-// Header.jsx
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
@@ -20,19 +19,27 @@ function Header() {
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
         <Navbar.Collapse id="navbarSupportedContent">
           <Nav className="mr-auto">
-            <Nav.Link href="/products">ProductManagement</Nav.Link>
-            <NavDropdown title="Dropdown" id="navbarDropdown">
-              <NavDropdown.Item href="/productsss">Test</NavDropdown.Item>
-              <NavDropdown.Item href="/display">Cat display</NavDropdown.Item>
-              <NavDropdown.Item href="/displayyy">Cat </NavDropdown.Item>
+            <Nav.Link href="/chiffre_d_affaire">Chiffre d'affaire</Nav.Link>
+            <NavDropdown title="Gestion" id="navbarDropdown">
+              <NavDropdown.Item href="/productsss">Produits</NavDropdown.Item>
+              <NavDropdown.Item href="/categories">Catégories</NavDropdown.Item>
+              <NavDropdown.Item href="/fournisseur">Fournisseur</NavDropdown.Item>
+              <NavDropdown.Item href="/chiffre_d_affaire">Chiffre d'affaire</NavDropdown.Item>
+              <NavDropdown.Item href="/chiffre_d_affaire_d">Chiffre d'affaire par date</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
+              <NavDropdown.Item href="#">Autre chose ici</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#" disabled>Disabled</Nav.Link>
+            <Nav.Link href="#" disabled>Désactivé</Nav.Link>
+          </Nav>
+          {/* Bouton de démonstration pour déclencher la notification */}
+          <Nav>
+            <Nav.Link onClick={notifySuccess}>
+              <i className="fas fa-bell"></i> {/* Icône de notification */}
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {/* Container pour les notifications */}
+      {/* Conteneur pour les notifications */}
       <ToastContainer />
     </>
   );
