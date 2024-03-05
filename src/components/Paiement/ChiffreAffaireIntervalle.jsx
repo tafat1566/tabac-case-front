@@ -1,74 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Line } from 'react-chartjs-2';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-function ChiffreAffaireIntervalle() {
-    const [dateDebut, setDateDebut] = useState('');
-    const [dateFin, setDateFin] = useState('');
-    const [chiffreAffaire, setChiffreAffaire] = useState(null);
-    const [chartData, setChartData] = useState({});
+const ChartComponent = () => {
+    const [data, setData] = useState([]);
 
-    const handleChangeDateDebut = (event) => {
-        setDateDebut(event.target.value);
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Récupérer les données de l'API
+                const response = await axios.get('http://127.0.0.1:8000/paiements');
 
-    const handleChangeDateFin = (event) => {
-        setDateFin(event.target.value);
-    };
+                // Traiter les données pour obtenir la variation du chiffre d'affaires par jour
+                const revenueByDay = {};
 
-    const handleCalculerChiffreAffaire = () => {
-        axios.post('http://localhost:8000/paiements/chiffre_affaire', {
-            date_debut: dateDebut,
-            date_fin: dateFin
-        })
-        .then(response => {
-            setChiffreAffaire(response.data.chiffre_affaire);
+                response.data.forEach(paiement => {
+                    const date = new Date(paiement.date_paiement).toLocaleDateString();
+                    const montant = parseFloat(paiement.montant);
 
-            // Construire les données pour le graphique
-            const labels = Object.keys(response.data.chiffre_affaire_par_date);
-            const data = Object.values(response.data.chiffre_affaire_par_date);
-
-            setChartData({
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Chiffre d\'affaires',
-                        data: data,
-                        fill: false,
-                        backgroundColor: 'rgba(75,192,192,0.2)',
-                        borderColor: 'rgba(75,192,192,1)',
+                    if (revenueByDay[date]) {
+                        revenueByDay[date] += montant;
+                    } else {
+                        revenueByDay[date] = montant;
                     }
-                ]
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching chiffre d\'affaire:', error);
-        });
-    };
+                });
+
+                // Convertir les données en format requis par Recharts
+                const chartData = Object.keys(revenueByDay).map(date => ({
+                    date,
+                    montant: revenueByDay[date]
+                }));
+
+                // Mettre à jour les données du composant
+                setData(chartData);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
-        <div className="container">
-            <h2>Calculateur de Chiffre d'Affaire par intervalle de dates</h2>
-            <div className="form-group">
-                <label>Date de début :</label>
-                <input type="date" className="form-control" value={dateDebut} onChange={handleChangeDateDebut} />
-            </div>
-            <div className="form-group">
-                <label>Date de fin :</label>
-                <input type="date" className="form-control" value={dateFin} onChange={handleChangeDateFin} />
-            </div>
-            <button className="btn btn-primary" onClick={handleCalculerChiffreAffaire}>Calculer</button>
-            {chiffreAffaire !== null && (
-                <p>Chiffre d'affaires pour l'intervalle de dates : {chiffreAffaire} €</p>
-            )}
-            {chartData.labels && (
-                <div>
-                    <h3>Graphique du chiffre d'affaires par date</h3>
-                    <Line data={chartData} />
-                </div>
-            )}
+        <div style={{ width: '100%', height: 400 }}>
+            <h2 style={{ textAlign: 'center' }}>Variation du chiffre d'affaires par jour</h2>
+            <ResponsiveContainer>
+                <LineChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="montant" stroke="#ff0000" activeDot={{ r: 8 }} />
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     );
-}
+};
 
-export default ChiffreAffaireIntervalle;
+export default ChartComponent;
