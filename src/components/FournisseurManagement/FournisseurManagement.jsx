@@ -23,6 +23,14 @@ function FournisseurManagement() {
         }
     };
 
+    const createNotification = async (message) => {
+        try {
+            await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });
+        } catch (error) {
+            console.error('Error creating notification:', error);
+        }
+    };
+
     const handleEdit = (fournisseur) => {
         setSelectedFournisseur(fournisseur);
         setFormData({ ...fournisseur });
@@ -47,6 +55,7 @@ function FournisseurManagement() {
             }
             fetchFournisseurs();
             setShowModal(false);
+            createNotification('Fournisseur ajouté/modifié avec succès !');
         } catch (error) {
             console.error('Error creating/editing fournisseur:', error);
         }
@@ -57,6 +66,7 @@ function FournisseurManagement() {
             try {
                 await axios.delete(`http://127.0.0.1:8000/fournisseurs/${fournisseurId}`);
                 fetchFournisseurs();
+                createNotification('Fournisseur supprimé avec succès !');
             } catch (error) {
                 console.error('Error deleting fournisseur:', error);
             }

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Grid, Paper } from '@material-ui/core';
+import { Button, Typography, Grid, Paper, Snackbar, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import axios from 'axios'; // Importez axios
 import CategoryList from './CategoryList';
 import ProductList from './ProductList';
 import Cart from './Cart';
+import TicketPrinter from './TicketPrinter'; // Import du composant TicketPrinter
 import '../../styles/CategoryProductDisplay.css';
 
 function CategoryDisplay() {
@@ -14,6 +17,9 @@ function CategoryDisplay() {
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [paymentAmount, setPaymentAmount] = useState(0);
+    const [paymentSuccess, setPaymentSuccess] = useState(false);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+    const [paymentMethods, setPaymentMethods] = useState(['espece', 'cheque', 'carte']);
 
     useEffect(() => {
         // Récupérer les catégories depuis l'API
@@ -27,7 +33,22 @@ function CategoryDisplay() {
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error('Erreur lors de la récupération des produits :', error));
+
+        // Récupérer les moyens de paiement depuis l'API
+        fetch('http://127.0.0.1:8000/payment-methods')
+            .then(response => response.json())
+            .then(data => setPaymentMethods(data))
+            .catch(error => console.error('Erreur lors de la récupération des moyens de paiement :', error));
     }, []);
+
+    // Fonction pour créer une notification
+    const createNotification = async (message) => {
+        try {
+            await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });
+        } catch (error) {
+            console.error('Error creating notification:', error);
+        }
+    };
 
     const handleCategoryClick = (categoryId) => {
         setSelectedCategory(categoryId);
@@ -63,7 +84,20 @@ function CategoryDisplay() {
         }
     };
 
+    const handleClosePaymentSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setPaymentSuccess(false);
+    };
+
     const savePayment = () => {
+        if (selectedPaymentMethod === '') {
+            console.error('Veuillez sélectionner un moyen de paiement');
+            alert('Veuillez sélectionner un moyen de paiement');
+            return;
+        }
+
         let totalAmount = 0;
         cart.forEach(item => {
             totalAmount += parseFloat(item.prix_unitaire) * item.quantity;
@@ -77,7 +111,8 @@ function CategoryDisplay() {
         const paymentData = {
             montant: totalAmount,
             date_paiement: formattedDate,
-            produit_id: cart.map(product => product.id)
+            produit_id: cart.map(product => product.id),
+            moyen_paiement: selectedPaymentMethod // Ajout du moyen de paiement
         };
     
         fetch('http://127.0.0.1:8000/paiements', {
@@ -98,26 +133,40 @@ function CategoryDisplay() {
             setPaymentAmount(0);
             setCart([]);
             setTotalPrice(0);
+            setPaymentSuccess(true); // Afficher le message de succès
+            createNotification('Paiement enregistré !');
         })
         .catch(error => console.error('Erreur lors de l\'enregistrement du paiement:', error));
     };
-    
 
     return (
         <div className="container">
+            <Snackbar 
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={paymentSuccess} 
+                autoHideDuration={6000} 
+                onClose={handleClosePaymentSuccess}
+            >
+                <MuiAlert elevation={6} variant="filled" onClose={handleClosePaymentSuccess} severity="success">
+                    Paiement enregistré avec succès !
+                </MuiAlert>
+            </Snackbar>
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                     <Paper elevation={3} style={{ padding: '20px' }}>
-                    <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
-                    Catégories
-      </Typography>
+                        <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
+                            Catégories
+                        </Typography>
                         <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
                     </Paper>
                 </Grid>
                 <Grid item xs={4}>
-                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
-        Produits
-      </Typography>
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
+                        Produits
+                    </Typography>
                     <ProductList
                         products={products}
                         selectedCategory={selectedCategory}
@@ -125,6 +174,7 @@ function CategoryDisplay() {
                         selectedProduct={selectedProduct}
                         handleProductSelect={handleProductSelect}
                         handleAddToCart={handleAddToCart}
+
                     />
                 </Grid>
                 <Grid item xs={4}>
@@ -133,9 +183,28 @@ function CategoryDisplay() {
                         totalPrice={totalPrice}
                         handleRemoveFromCart={handleRemoveFromCart}
                         savePayment={savePayment}
+                        paymentMethods ={paymentMethods}
                     />
+                    <FormControl style={{ marginTop: '20px', position: 'absolute', top: 95, right: 150 }}>
+                        <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
+                        <Select
+                            labelId="payment-method-label"
+                            id="payment-method-select"
+                            value={selectedPaymentMethod}
+                            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                        >
+                            <MenuItem value="">
+                                
+                            </MenuItem>
+                            {paymentMethods.map((method, index) => (
+                                <MenuItem key={index} value={method}>{method}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Grid>
             </Grid>
+            {/* Composant TicketPrinter pour l'impression du ticket */}
+            <TicketPrinter />
         </div>
     );
 }

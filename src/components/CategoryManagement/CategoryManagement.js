@@ -53,6 +53,7 @@ function CategoryManagement() {
             await axios.post('http://127.0.0.1:8000/categories', formData);
             fetchCategories();
             setShowCreateModal(false);
+            createNotification('New category created: ' + formData.nom);
         } catch (error) {
             console.error('Error creating category:', error);
         }
@@ -64,19 +65,29 @@ function CategoryManagement() {
             await axios.put(`http://127.0.0.1:8000/categories/${selectedCategory.id}`, formData);
             fetchCategories();
             setShowEditModal(false);
+            createNotification('Category edited: ' + formData.nom);
         } catch (error) {
             console.error('Error editing category:', error);
         }
     };
 
     const handleDelete = async (categoryId) => {
-        if (window.confirm("Êtes-vous sûr de vouloir supprimer cette catégorie ?")) {
+        if (window.confirm("Are you sure you want to delete this category?")) {
             try {
                 await axios.delete(`http://127.0.0.1:8000/categories/${categoryId}`);
                 fetchCategories();
+                createNotification('Category deleted');
             } catch (error) {
                 console.error('Error deleting category:', error);
             }
+        }
+    };
+
+    const createNotification = async (message) => {
+        try {
+            await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });
+        } catch (error) {
+            console.error('Error creating notification:', error);
         }
     };
 
@@ -89,7 +100,6 @@ function CategoryManagement() {
                 handleDelete={handleDelete}
             />
 
-            {/* Utilisez le composant CategoryModal */}
             <CategoryModal
                 show={showCreateModal}
                 handleClose={handleCloseCreate}
@@ -97,7 +107,7 @@ function CategoryManagement() {
                 formData={formData}
                 handleChange={handleChange}
                 title="Create Category"
-                buttonLabel="Enregistrer"
+                buttonLabel="Save"
             />
 
             <CategoryModal
@@ -107,7 +117,7 @@ function CategoryManagement() {
                 formData={formData}
                 handleChange={handleChange}
                 title="Edit Category"
-                buttonLabel="Enregistrer"
+                buttonLabel="Save"
             />
         </>
     );

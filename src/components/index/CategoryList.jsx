@@ -4,10 +4,16 @@ import { makeStyles } from '@mui/styles';
 
 // Tableau de couleurs pour les catégories
 const categoryColors = [
-  '#ff6666', '#66ff66', '#6666ff', '#facf21', '#ff66ff', '#66ffff',
-  '#ff9966', '#66ccff', '#cc66ff', '#99ff66', '#ff6666', '#6699ff',
-  '#66ff99', '#ff66cc', '#66ffcc', '#ffcc66',
+  '#FFD700', // Or
+  '#FFA07A', // Saumon clair
+  '#87CEFA', // Bleu ciel
+  '#98FB98', // Vert clair
+  '#FF69B4', // Rose vif
+  '#20B2AA', // Bleu turquoise
+  '#9370DB', // Violet moyen
+  '#FF6347', // Rouge corail
 ];
+
 
 // Styles personnalisés avec makeStyles
 const useStyles = makeStyles((theme) => ({

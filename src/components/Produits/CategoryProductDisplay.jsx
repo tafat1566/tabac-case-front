@@ -13,6 +13,13 @@ function CategoryProductDisplay() {
     const [totalPrice, setTotalPrice] = useState(0);
     const [paymentAmount, setPaymentAmount] = useState(0);
 
+    const createNotification = async (message) => {
+        try {
+            await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });
+        } catch (error) {
+            console.error('Error creating notification:', error);
+        }
+    };
     useEffect(() => {
         // Récupérer les catégories depuis l'API
         fetch('http://127.0.0.1:8000/categories')
