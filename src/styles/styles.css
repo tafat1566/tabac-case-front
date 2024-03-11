@@ -7,3 +7,12 @@
 .white-text {
   color: white;
 }
+
+/* styles.css */
+
+body {
+  background-image: url('/magasin.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

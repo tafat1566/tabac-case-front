@@ -6,8 +6,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #8e7a97; /* Gray-600 */
+  background-color: #665d7e; /* Une nuance sophistiquée de violet-gris */
 }
+
+/* styles.css */
+
+/* body {
+  background-image: url('/magasin.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

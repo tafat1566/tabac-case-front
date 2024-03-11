@@ -1,0 +1,26 @@
+.notification-item {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .notification-item.read {
+    background-color: #ffffff;
+  }
+  
+  .notification-message {
+    font-weight: bold;
+  }
+  
+  .notification-date {
+    color: #6c757d;
+    font-size: 0.8em;
+  }
+  

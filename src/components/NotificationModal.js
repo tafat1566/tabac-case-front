@@ -26,7 +26,7 @@ function NotificationModal({ show, onHide, notifications, updateNotifications })
               onClick={() => handleNotificationClick(notification.id)}
               style={{ cursor: 'pointer', backgroundColor: notification.lu ? '#ffffff' : '#f0f0f0' }}
             >
-              <div style={{ color: notification.lu ? '#000000' : '#0000ff', fontWeight: 'bold' }}>{notification.message}</div>
+              <div style={{ color: notification.lu ? '#000000' : notification.message.includes('La quantité en stock du produit') ? 'red' : '#0000ff', fontWeight: 'bold' }}>{notification.message}</div>
               <div style={{ color: '#6c757d' }}>{new Date(notification.dateCreation).toLocaleString()}</div>
             </ListGroup.Item>
           ))}

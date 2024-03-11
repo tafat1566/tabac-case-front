@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import jsPDF from 'jspdf';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment ,paymentMethods}) {
   const [showTicket, setShowTicket] = useState(false);
@@ -106,9 +107,10 @@ const renderTicket = (data) => {
 
   return (
 <Card elevation={3} style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-  <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
-     Panier
-  </Typography>
+<Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
+    <ShoppingCartIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+    Panier
+</Typography>
   <List>
     {cart.map((item) => (
       <Slide direction="right" in={true} key={item.id}>

@@ -14,39 +14,41 @@ const categoryColors = [
   '#FF6347', // Rouge corail
 ];
 
-
-// Styles personnalisés avec makeStyles
 const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(3),
-    transition: 'transform 0.2s',
+    transition: theme.transitions.create(['transform', 'box-shadow'], {
+      duration: theme.transitions.duration.short,
+    }),
     '&:hover': {
       transform: 'scale(1.05)',
+      boxShadow: theme.shadows[6], // Ombre plus prononcée au survol
     },
   },
   categoryName: {
-    fontWeight: 'bold', // Mettre en gras
-    color: '#000000', // Couleur noire pour le texte
+    fontWeight: 'bold',
+    color: theme.palette.text.primary,
+    marginBottom: theme.spacing(1),
+    overflow: 'hidden', // Empêche le texte de dépasser de la carte
+    textOverflow: 'ellipsis', // Affiche "..." pour indiquer que du texte est masqué
+    whiteSpace: 'nowrap', // Empêche le texte de passer à la ligne
   },
   categoryContainer: {
-    backgroundColor: '#f5f5f5', // Couleur de fond grise
-    padding: theme.spacing(3), // Ajout de marge intérieure pour l'espace
-    borderRadius: theme.shape.borderRadius, // Ajout de bord arrondi
-    boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.1)', // Ajout d'une ombre légère
+    backgroundColor: theme.palette.grey[30],
+    padding: theme.spacing(3),
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[3],
   },
 }));
 
-// Composant CategoryList
 function CategoryList({ categories, handleCategoryClick }) {
   const classes = useStyles();
 
   return (
     <Container maxWidth="lg" className={classes.categoryContainer}>
-      <Grid container spacing={3}>
+      <Grid container spacing={-1}>
         {categories.map((category, index) => {
-          // Extraction du nom de la catégorie
-          const categoryName = category.nom.split(/[\s-]/)[0];
-          // Sélection de la couleur de la carte en fonction de l'index
+          const categoryName = category.nom;
           const colorIndex = index % categoryColors.length;
           const cardColor = categoryColors[colorIndex];
 
@@ -58,10 +60,10 @@ function CategoryList({ categories, handleCategoryClick }) {
                 onClick={() => handleCategoryClick(category.id)}
               >
                 <CardContent>
-                  {/* Utilisation de la classe de style pour le nom de la catégorie */}
-                  <Typography variant="body2" className={classes.categoryName}>
+                  <Typography variant="h6" className={classes.categoryName}>
                     {categoryName}
                   </Typography>
+                  {/* Ajoutez ici des icônes, des images ou d'autres contenus pour chaque catégorie */}
                 </CardContent>
               </Card>
             </Grid>

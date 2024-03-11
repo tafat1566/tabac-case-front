@@ -5,6 +5,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import NotificationModal from '../NotificationModal';
+import '../../styles/Header.css'; // Importe le fichier CSS pour styliser le header
 
 function Header() {
   const [notifications, setNotifications] = useState([]);
@@ -29,12 +30,15 @@ function Header() {
   const unreadNotifications = notifications.filter(notification => !notification.lu);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Navbar bg="dark" variant="dark" expand="lg" className="navbar-expand">
-        <Navbar.Brand href="/index">Home</Navbar.Brand>
+    <div className="header-container"> {/* Utilise une classe pour styliser le container du header */}
+      <Navbar  expand="lg" className="navbar-expand" style={{ backgroundColor: '#6b5573' }}>
+        <Navbar.Brand href="/index">TabacEase</Navbar.Brand> {/* Change le titre du site */}
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
         <Navbar.Collapse id="navbarSupportedContent">
           <Nav className="mr-auto">
+            <Nav.Link href="/productsss">Gestion Produits</Nav.Link>
+            <Nav.Link href="/categories">Gestion Catégories</Nav.Link>
+            <Nav.Link href="/fournisseur">Gestion Fournisseur</Nav.Link>
             <Nav.Link href="/chiffre_d_affaire">Chiffre d'affaire</Nav.Link>
             <NavDropdown title="Gestion" id="navbarDropdown">
               <NavDropdown.Item href="/productsss">Produits</NavDropdown.Item>
@@ -50,8 +54,7 @@ function Header() {
           <Nav>
             <Nav.Link onClick={() => setShowNotifications(true)}>
               <FontAwesomeIcon icon={faBell} />
-              {/* Utilisez la longueur du tableau des notifications non lues pour afficher le nombre */}
-              <span className="notification-badge" style={{ color: 'red' }}>{unreadNotifications.length}</span>
+              <span className="notification-badge">{unreadNotifications.length}</span> {/* Utilise une classe pour styliser le badge de notification */}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

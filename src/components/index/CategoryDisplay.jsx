@@ -7,6 +7,8 @@ import ProductList from './ProductList';
 import Cart from './Cart';
 import TicketPrinter from './TicketPrinter'; // Import du composant TicketPrinter
 import '../../styles/CategoryProductDisplay.css';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import CategoryIcon from '@mui/icons-material/Category';
 
 function CategoryDisplay() {
     const [categories, setCategories] = useState([]);
@@ -19,7 +21,7 @@ function CategoryDisplay() {
     const [paymentAmount, setPaymentAmount] = useState(0);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const [paymentMethods, setPaymentMethods] = useState(['espece', 'cheque', 'carte']);
+    const [paymentMethods, setPaymentMethods] = useState(['Espèce', 'Chèque', 'Carte']);
 
     useEffect(() => {
         // Récupérer les catégories depuis l'API
@@ -157,16 +159,23 @@ function CategoryDisplay() {
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                     <Paper elevation={3} style={{ padding: '20px' }}>
-                        <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
-                            Catégories
-                        </Typography>
-                        <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
+                    
+
+                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
+                    <CategoryIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+                    Catégories
+                </Typography>
+                <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
                     </Paper>
                 </Grid>
                 <Grid item xs={4}>
-                    <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
-                        Produits
-                    </Typography>
+                
+                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
+                    <StorefrontIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+                    Produits
+                </Typography>
+
+
                     <ProductList
                         products={products}
                         selectedCategory={selectedCategory}
@@ -185,22 +194,26 @@ function CategoryDisplay() {
                         savePayment={savePayment}
                         paymentMethods ={paymentMethods}
                     />
-                    <FormControl style={{ marginTop: '20px', position: 'absolute', top: 95, right: 150 }}>
-                        <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
-                        <Select
-                            labelId="payment-method-label"
-                            id="payment-method-select"
-                            value={selectedPaymentMethod}
-                            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        >
-                            <MenuItem value="">
-                                
-                            </MenuItem>
-                            {paymentMethods.map((method, index) => (
-                                <MenuItem key={index} value={method}>{method}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    <Grid container justifyContent="flex-end" alignItems="center" style={{ marginTop: '20px' }}>
+    <Grid item>
+    <FormControl style={{ marginTop: '20px', position: 'absolute', top: '120px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>            <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
+            <Select
+                labelId="payment-method-label"
+                id="payment-method-select"
+                value={selectedPaymentMethod}
+                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                style={{ width: '100%' }}
+            >
+                <MenuItem value="">
+                    
+                </MenuItem>
+                {paymentMethods.map((method, index) => (
+                    <MenuItem key={index} value={method}>{method}</MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    </Grid>
+</Grid>
                 </Grid>
             </Grid>
             {/* Composant TicketPrinter pour l'impression du ticket */}

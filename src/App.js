@@ -11,7 +11,6 @@ import ChartComponent from './components/Paiement/ChartComponent';
 import ChiffreAffaireIntervalle from './components/Paiement/ChiffreAffaireIntervalle';
 import Notification from './components/Notification/Notification';
 import Typography from '@mui/material/Typography';
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -38,15 +37,16 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="app-container">
         <Header />
-        <div style={{ textAlign: 'center', color: '#191970', fontSize: '24px', marginBottom: '20px' }}>
-  <Typography variant="h5">
-    {dateTime.toLocaleString()}
-  </Typography>
-</div>
+        <div style={{ textAlign: 'center', color: '#ffffff', fontSize: '24px', marginBottom: '20px' }}>
+          <Typography variant="h5">
+            {dateTime.toLocaleString()}
+          </Typography>
+        </div>
+
 
         <Router>
           <Routes>
-            <Route exact path="/" />
+            <Route path="/" element={<CategoryDisplay />} />
             <Route path="/products" element={<ProductManagement />} />
             <Route path="/productsss" element={<ProductSender />} />
             <Route path="/index" element={<CategoryDisplay />} />

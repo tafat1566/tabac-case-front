@@ -1,0 +1,34 @@
+/* Header.css */
+
+.header-container {
+    position: relative;
+  }
+  
+  .notification-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 9999; /* Assure que l'icône apparaît au-dessus des autres éléments */
+  }
+  
+  .notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+  
+  .navbar-expand {
+    padding: 15px 0; /* Ajoute un espace intérieur au navbar */
+  }
+  
+  .navbar-brand {
+    font-size: 24px; /* Augmente la taille de la police du titre */
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 18px; /* Augmente la taille de la police des liens */
+  }
+  
