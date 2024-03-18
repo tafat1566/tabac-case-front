@@ -8,10 +8,10 @@ const ChartComponent = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Récupérer les données de l'API
+                
                 const response = await axios.get('http://127.0.0.1:8000/paiements');
 
-                // Traiter les données pour obtenir la variation du chiffre d'affaires par jour
+                
                 const revenueByDay = {};
 
                 response.data.forEach(paiement => {
@@ -25,13 +25,13 @@ const ChartComponent = () => {
                     }
                 });
 
-                // Convertir les données en format requis par Recharts
+                
                 const chartData = Object.keys(revenueByDay).map(date => ({
                     date,
                     montant: revenueByDay[date]
                 }));
 
-                // Mettre à jour les données du composant
+                
                 setData(chartData);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données :', error);

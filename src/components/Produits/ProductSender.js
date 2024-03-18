@@ -78,7 +78,7 @@ function ProductSender() {
                 if (response.ok) {
                     console.log('Data sent successfully');
                     handleClose();
-                    fetchProducts(); // Rafraîchir la liste des produits après l'ajout ou la modification
+                    fetchProducts(); 
                 } else {
                     throw new Error('Failed to send data');
                 }
@@ -86,7 +86,7 @@ function ProductSender() {
             .catch(error => console.error('Error sending data:', error));
     };
 
-    // Attendre que les catégories soient chargées avant de rendre le composant ProductTable
+    
     if (categories.length === 0) {
         return <div>Loading...</div>;
     }
@@ -104,7 +104,7 @@ function ProductSender() {
                 categories={categories}
             />
 
-            <ProductTable products={products} setProducts={setProducts} handleEdit={handleEdit} categories={categories} /> {/* Utilisation du composant ProductTable */}
+            <ProductTable products={products} setProducts={setProducts} handleEdit={handleEdit} categories={categories} /> {}
         </div>
     );
 }

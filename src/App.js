@@ -11,6 +11,8 @@ import ChartComponent from './components/Paiement/ChartComponent';
 import ChiffreAffaireIntervalle from './components/Paiement/ChiffreAffaireIntervalle';
 import Notification from './components/Notification/Notification';
 import Typography from '@mui/material/Typography';
+import './styles/styles.css'
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -37,7 +39,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="app-container">
         <Header />
-        <div style={{ textAlign: 'center', color: '#ffffff', fontSize: '24px', marginBottom: '20px' }}>
+        <div style={{ textAlign: 'center', color: '#100336', fontSize: '24px', marginBottom: '20px' }}>
           <Typography variant="h5">
             {dateTime.toLocaleString()}
           </Typography>
@@ -56,6 +58,8 @@ function App() {
             <Route path="/chiffre_d_affaire" element={<ChartComponent />} />
             <Route path="/chiffre_d_affaire_d" element={<ChiffreAffaireIntervalle />} />
             <Route path="/notification" element={<Notification />} />
+            
+
           </Routes>
         </Router>
       </div>

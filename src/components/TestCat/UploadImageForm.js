@@ -35,10 +35,10 @@ const UploadImageForm = () => {
       });
 
       console.log('Response from server:', response.data);
-      // Ajoutez ici toute logique supplémentaire après l'envoi réussi de l'image
+      
     } catch (error) {
       console.error('Error uploading image:', error);
-      // Ajoutez ici toute gestion d'erreur nécessaire
+      
     }
   };
 

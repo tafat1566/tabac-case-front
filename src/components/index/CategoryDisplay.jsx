@@ -216,7 +216,7 @@ function CategoryDisplay() {
 </Grid>
                 </Grid>
             </Grid>
-            {/* Composant TicketPrinter pour l'impression du ticket */}
+            {}
             <TicketPrinter />
         </div>
     );

@@ -21,13 +21,13 @@ function CategoryProductDisplay() {
         }
     };
     useEffect(() => {
-        // Récupérer les catégories depuis l'API
+        
         fetch('http://127.0.0.1:8000/categories')
             .then(response => response.json())
             .then(data => setCategories(data))
             .catch(error => console.error('Erreur lors de la récupération des catégories :', error));
 
-        // Récupérer les produits depuis l'API
+        
         fetch('http://127.0.0.1:8000/produits')
             .then(response => response.json())
             .then(data => setProducts(data))

@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+```markdown
+# TabacEase-Back
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Ce référentiel contient le code source de l'application TabacEase-Back, une API développée en Symfony pour gérer les paiements, les encaissements, les produits, les fournisseurs, et calculer le chiffre d'affaires d'un bureau de tabac.
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+### PostgreSQL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Assurez-vous d'avoir les droits d'administration sur votre système.
+2. Utilisez le gestionnaire de paquets de votre système pour installer PostgreSQL. Par exemple, sur Ubuntu, vous pouvez exécuter :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
 
-### `npm test`
+3. Une fois l'installation terminée, démarrez le service PostgreSQL :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+sudo service postgresql start
+```
 
-### `npm run build`
+### PHP 8.1
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Ajoutez le référentiel PPA pour PHP 8.1 (si vous utilisez Ubuntu) :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+sudo add-apt-repository ppa:ondrej/php
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Mettez à jour la liste des paquets :
 
-### `npm run eject`
+```bash
+sudo apt update
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Installez PHP 8.1 et les extensions requises :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+sudo apt install php8.1 php8.1-cli php8.1-common php8.1-curl php8.1-xml php8.1-mbstring php8.1-pgsql
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Vérifiez l'installation de PHP en exécutant :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+php -v
+```
 
-## Learn More
+### Symfony CLI
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Téléchargez l'exécutable Symfony CLI en utilisant cURL :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+wget https://get.symfony.com/cli/installer -O - | bash
+```
 
-### Code Splitting
+2. Déplacez l'exécutable Symfony CLI dans un répertoire accessible :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
+```
 
-### Analyzing the Bundle Size
+3. Assurez-vous que Symfony CLI est bien installé en exécutant :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+symfony -v
+```
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Une fois ces étapes terminées, vous devriez avoir PostgreSQL, PHP 8.1 et Symfony CLI installés sur votre système. Vous pouvez ensuite procéder à l'installation de votre application TabacEase-Back en suivant les instructions fournies dans votre référentiel.
+```

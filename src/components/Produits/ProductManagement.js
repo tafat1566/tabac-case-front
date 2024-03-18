@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import ProductModal from './ProductModal';
-import axios from 'axios'; // Import d'axios
+import axios from 'axios'; 
 
 function ProductManagement() {
     const [products, setProducts] = useState([]);
@@ -43,8 +43,8 @@ function ProductManagement() {
         e.preventDefault();
         try {
             await axios.post('http://127.0.0.1:8000/produits', formData);
-            await createNotification('New product added'); // Notification
-            fetchProducts(); // Rafraîchir la liste des produits après la création
+            await createNotification('New product added'); 
+            fetchProducts(); 
             handleClose();
         } catch (error) {
             console.error('Error creating product:', error);
@@ -57,7 +57,7 @@ function ProductManagement() {
             const data = await response.json();
             setFormData(data);
             console.log(data);
-            handleShow(); // Afficher le modal de modification
+            handleShow(); 
         } catch (error) {
             console.error('Error fetching product details:', error);
         }
@@ -68,14 +68,14 @@ function ProductManagement() {
             await fetch(`http://127.0.0.1:8000/produits/${id}`, {
                 method: 'DELETE',
             });
-            await createNotification('Product deleted'); // Notification
-            fetchProducts(); // Rafraîchir la liste des produits après la suppression
+            await createNotification('Product deleted'); 
+            fetchProducts(); 
         } catch (error) {
             console.error('Error deleting product:', error);
         }
     };
 
-    // Fonction pour créer une notification
+    
     const createNotification = async (message) => {
         try {
             await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });

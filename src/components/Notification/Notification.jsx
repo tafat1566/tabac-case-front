@@ -14,11 +14,11 @@ function Notification() {
 
   return (
     <>
-      {/* Bouton de démonstration pour déclencher la notification */}
+      {}
       <div className="notification-icon" onClick={notifySuccess}>
-        <FontAwesomeIcon icon={faBell} /> {/* Icône de notification */}
+        <FontAwesomeIcon icon={faBell} /> {}
       </div>
-      {/* Conteneur pour les notifications */}
+      {}
       <ToastContainer />
     </>
   );

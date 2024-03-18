@@ -1,18 +1,18 @@
 .cart-container {
-    background-color: #f0f0f0; /* gris clair */
+    background-color: #f1ebeb; /* gris clair */
     padding: 10px;
   }
   /* styles.css */
 
 .white-text {
-  color: white;
+  color: rgb(105, 33, 33);
 }
 
 /* styles.css */
 
-body {
+/* body {
   background-image: url('/magasin.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */

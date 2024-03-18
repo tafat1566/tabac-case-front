@@ -108,7 +108,7 @@ function FournisseurManagement() {
                 </tbody>
             </Table>
 
-            {/* Utilisez le composant FournisseurModal */}
+            {}
             <FournisseurModal
                 showModal={showModal}
                 handleCloseModal={handleCloseModal}

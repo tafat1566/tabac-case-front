@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { FiSave, FiX } from 'react-icons/fi'; // Importation des icônes
+import { FiSave, FiX } from 'react-icons/fi'; 
 
 function ProductModal({ show, handleClose, handleSubmit, formData, handleChange, categories }) {
     return (

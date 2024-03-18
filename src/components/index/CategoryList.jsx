@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid, Container } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Container, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 // Tableau de couleurs pour les catégories
@@ -26,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   categoryName: {
-    fontWeight: 'bold',
+    fontWeight: 'bold', // Met en gras les noms de catégorie
     color: theme.palette.text.primary,
     marginBottom: theme.spacing(1),
     overflow: 'hidden', // Empêche le texte de dépasser de la carte
     textOverflow: 'ellipsis', // Affiche "..." pour indiquer que du texte est masqué
     whiteSpace: 'nowrap', // Empêche le texte de passer à la ligne
+    fontSize: '0.5rem', // Réduire la taille de la police
   },
   categoryContainer: {
     backgroundColor: theme.palette.grey[30],
@@ -51,6 +52,19 @@ function CategoryList({ categories, handleCategoryClick }) {
           const categoryName = category.nom;
           const colorIndex = index % categoryColors.length;
           const cardColor = categoryColors[colorIndex];
+          const supportedFormats = ['jpg', 'jpeg', 'png', 'webp'];
+          let categoryImageSrc = null;
+
+          // Recherche du fichier image supporté
+          for (let format of supportedFormats) {
+            const imageUrl = `/CategorieImage/${categoryName}.${format}`;
+            const img = new Image();
+            img.src = imageUrl;
+            if (img.complete) {
+              categoryImageSrc = imageUrl;
+              break;
+            }
+          }
 
           return (
             <Grid item xs={12} sm={6} md={4} key={category.id}>
@@ -60,10 +74,13 @@ function CategoryList({ categories, handleCategoryClick }) {
                 onClick={() => handleCategoryClick(category.id)}
               >
                 <CardContent>
+                  {categoryImageSrc && (
+                    <Avatar alt={categoryName} src={categoryImageSrc} variant="rounded" style={{ width: '100px', height: '100px', marginBottom: '10px' }} />
+                  )}
                   <Typography variant="h6" className={classes.categoryName}>
                     {categoryName}
                   </Typography>
-                  {/* Ajoutez ici des icônes, des images ou d'autres contenus pour chaque catégorie */}
+                  {}
                 </CardContent>
               </Card>
             </Grid>

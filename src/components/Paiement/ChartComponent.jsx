@@ -11,10 +11,10 @@ const ChartComponent = () => {
 
     const fetchData = async () => {
         try {
-            // Récupérer les données de l'API
+           
             const response = await axios.get(`http://127.0.0.1:8000/paiements?year=${selectedYear}`);
 
-            // Traiter les données pour obtenir la variation du chiffre d'affaires par jour
+            
             const revenueByDay = {};
             const monthsSet = new Set();
 
@@ -36,13 +36,13 @@ const ChartComponent = () => {
                 monthsSet.add(month);
             });
 
-            // Convertir les données en format requis par Recharts
+           
             const chartData = Object.keys(revenueByDay).map(date => ({
                 date,
                 montant: revenueByDay[date]
             }));
 
-            // Mettre à jour les données du composant
+            
             setData(chartData);
             setAvailableMonths(Array.from(monthsSet));
         } catch (error) {
@@ -78,7 +78,7 @@ const ChartComponent = () => {
                     <Col>
                         <Form.Control as="select" onChange={handleYearChange}>
                             <option value="">Toutes les années</option>
-                            <option value={2024}>2024</option> {/* Vous pouvez ajouter les années nécessaires ici */}
+                            <option value={2024}>2024</option> {}
                         </Form.Control>
                     </Col>
                     <Col>
