@@ -16,12 +16,12 @@ import './styles/styles.css'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ff0000', // Couleur principale
-      contrastText: '#ffffff' // Couleur du texte en contraste
+      main: '#ff0000', 
+      contrastText: '#ffffff' 
     },
-    // Définir d'autres couleurs si nécessaire
+    
   },
-  // Définir d'autres propriétés de thème si nécessaire
+  
 });
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setDateTime(new Date());
-    }, 1000); // Mettre à jour toutes les secondes
+    }, 1000); 
 
     return () => clearInterval(interval);
   }, []);

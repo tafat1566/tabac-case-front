@@ -2,16 +2,16 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, Container, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-// Tableau de couleurs pour les catégories
+
 const categoryColors = [
-  '#FFD700', // Or
-  '#FFA07A', // Saumon clair
-  '#87CEFA', // Bleu ciel
-  '#98FB98', // Vert clair
-  '#FF69B4', // Rose vif
-  '#20B2AA', // Bleu turquoise
-  '#9370DB', // Violet moyen
-  '#FF6347', // Rouge corail
+  '#FFD700', 
+  '#FFA07A', 
+  '#87CEFA', 
+  '#98FB98', 
+  '#FF69B4', 
+  '#20B2AA', 
+  '#9370DB', 
+  '#FF6347', 
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
     }),
     '&:hover': {
       transform: 'scale(1.05)',
-      boxShadow: theme.shadows[6], // Ombre plus prononcée au survol
+      boxShadow: theme.shadows[6], 
     },
   },
   categoryName: {
-    fontWeight: 'bold', // Met en gras les noms de catégorie
+    fontWeight: 'bold', 
     color: theme.palette.text.primary,
     marginBottom: theme.spacing(1),
-    overflow: 'hidden', // Empêche le texte de dépasser de la carte
-    textOverflow: 'ellipsis', // Affiche "..." pour indiquer que du texte est masqué
-    whiteSpace: 'nowrap', // Empêche le texte de passer à la ligne
-    fontSize: '0.5rem', // Réduire la taille de la police
+    overflow: 'hidden', 
+    textOverflow: 'ellipsis', 
+    whiteSpace: 'nowrap', 
+    fontSize: '0.5rem', 
   },
   categoryContainer: {
     backgroundColor: theme.palette.grey[30],
@@ -55,7 +55,7 @@ function CategoryList({ categories, handleCategoryClick }) {
           const supportedFormats = ['jpg', 'jpeg', 'png', 'webp'];
           let categoryImageSrc = null;
 
-          // Recherche du fichier image supporté
+          
           for (let format of supportedFormats) {
             const imageUrl = `/CategorieImage/${categoryName}.${format}`;
             const img = new Image();

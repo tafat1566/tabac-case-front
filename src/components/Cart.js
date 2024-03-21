@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { Delete, AddCircle } from '@mui/icons-material'; // Importez les icônes de Material-UI
-import '../styles.css'; // Importez votre fichier de styles CSS
+import { Delete, AddCircle } from '@mui/icons-material'; 
+import '../styles.css'; 
 
 function Cart({ selectedProducts, removeItem, addItem }) {
   let totalPrice = 0;
@@ -11,7 +11,7 @@ function Cart({ selectedProducts, removeItem, addItem }) {
   });
 
   return (
-    <div className="cart-container"> {/* Ajoutez la classe CSS ici */}
+    <div className="cart-container"> {}
       <Typography variant="h4" gutterBottom>Panier :</Typography>
       <List>
         {selectedProducts.map(product => (
@@ -20,10 +20,10 @@ function Cart({ selectedProducts, removeItem, addItem }) {
               primary={`${product.nom} - ${product.prix_unitaire} € - Quantité : ${product.quantity}`}
             />
             <div>
-              <Button onClick={() => removeItem(product)} variant="contained" color="error" startIcon={<Delete />}> {/* Utilisez Delete à la place de BsTrash */}
+              <Button onClick={() => removeItem(product)} variant="contained" color="error" startIcon={<Delete />}> {}
                 
               </Button>
-              <Button onClick={() => addItem(product)} variant="contained" color="primary" startIcon={<AddCircle />}> {/* Utilisez AddCircle à la place de BsPlusSquare */}
+              <Button onClick={() => addItem(product)} variant="contained" color="primary" startIcon={<AddCircle />}> {}
                 
               </Button>
             </div>

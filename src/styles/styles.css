@@ -1,14 +1,14 @@
 .cart-container {
-    background-color: #f1ebeb; /* gris clair */
+    background-color: #f1ebeb; 
     padding: 10px;
   }
-  /* styles.css */
+  
 
 .white-text {
   color: rgb(105, 33, 33);
 }
 
-/* styles.css */
+
 
 /* body {
   background-image: url('/magasin.jpg');
@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
 } */
 .app-container {
-  background-image: url('../../public/arrerp.png'); /* ajuste le chemin selon ta structure de fichiers */
+  background-image: url('../../public/arrerp.png'); 
   background-size: cover;
   background-position: center;
 }

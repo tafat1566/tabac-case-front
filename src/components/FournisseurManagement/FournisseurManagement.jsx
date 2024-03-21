@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Table, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { BsPencil, BsTrash } from 'react-icons/bs';
-import FournisseurModal from './FournisseurModal'; // Importez le composant FournisseurModal
+import FournisseurModal from './FournisseurModal'; 
 
 function FournisseurManagement() {
     const [fournisseurs, setFournisseurs] = useState([]);

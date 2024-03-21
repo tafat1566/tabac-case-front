@@ -1,4 +1,4 @@
-/* Header.css */
+
 
 .header-container {
     position: relative;
@@ -9,7 +9,7 @@
     top: 20px;
     right: 20px;
     cursor: pointer;
-    z-index: 9999; /* Assure que l'icône apparaît au-dessus des autres éléments */
+    z-index: 9999; 
   }
   
   .notification-badge {
@@ -21,14 +21,14 @@
   }
   
   .navbar-expand {
-    padding: 15px 0; /* Ajoute un espace intérieur au navbar */
+    padding: 15px 0; 
   }
   
   .navbar-brand {
-    font-size: 24px; /* Augmente la taille de la police du titre */
+    font-size: 24px; 
   }
   
   .navbar-nav .nav-link {
-    font-size: 18px; /* Augmente la taille de la police des liens */
+    font-size: 18px; 
   }
   

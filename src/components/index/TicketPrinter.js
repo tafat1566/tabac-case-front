@@ -5,7 +5,7 @@ const TicketPrinter = () => {
 
   const handlePrintTicket = async () => {
     try {
-      // Envoi de la demande d'impression au serveur
+      
       const response = await fetch('http://127.0.0.1:8000/api/print-ticket', {
         method: 'POST',
         headers: {

@@ -7,7 +7,7 @@ function NotificationModal({ show, onHide, notifications, updateNotifications })
   const handleNotificationClick = async (id) => {
     try {
       await axios.put(`http://127.0.0.1:8000/notifications/${id}/mark-as-read`);
-      updateNotifications(); // Mettre à jour les notifications après le marquage comme lu
+      updateNotifications(); 
     } catch (error) {
       console.error('Error marking notification as read:', error);
     }

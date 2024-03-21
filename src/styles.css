@@ -1,10 +1,10 @@
 .selected {
-    background-color: #f0f0f0; /* Définissez la couleur d'arrière-plan des produits sélectionnés */
+    background-color: #f0f0f0; 
   }
   .selected-item {
-    background-color: #f0f0f0; /* Gris clair */
+    background-color: #f0f0f0; 
   }
-  /* styles.css */
+  
 .app-container {
     display: flex;
     flex-direction: column;
@@ -22,25 +22,25 @@
     width: 45%;
   }
   
- /* styles.css */
+ 
 
-/* Style pour le panier */
+
 .cart-container {
   position: fixed;
   top: 0;
   right: 0;
   width: 300px;
   padding: 10px;
-  background-color: #f0f0f0; /* Gris clair */
+  background-color: #f0f0f0; 
 }
 
-/* Style pour le formulaire de paiement */
+
 .payment-form {
   position: fixed;
   bottom: 0;
   width: 100%;
   padding: 20px;
-  background-color: #f0f0f0; /* Gris clair */
+  background-color: #f0f0f0; 
 }
 
   
@@ -51,14 +51,14 @@
     text-align: center;
   }
   .cart-container {
-    background-color: #f0f0f0; /* gris clair */
+    background-color: #f0f0f0; 
     padding: 10px;
   }
     
 
 .payment-button-container {
-  margin-top: 20px; /* Espacement du bouton par rapport au contenu précédent */
-  text-align: center; /* Centre le bouton horizontalement */
+  margin-top: 20px; 
+  text-align: center; 
   width: 100%;
   max-width: 500px;
 
@@ -66,7 +66,7 @@
 .white-text {
   color: rgb(238, 12, 12);
 }
-/* styles.css */
+
 /* .navbar-expand {
   width: 50%;
 } */

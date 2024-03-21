@@ -39,13 +39,13 @@ function ProductList({ products, selectedCategory, productsVisible, selectedProd
     );
 }
 
-// Fonction pour obtenir le chemin d'accès de l'image en fonction du nom du produit
+
 function getImageSrc(productName) {
     const possibleExtensions = ['jpg', 'jpeg', 'png','webp'];
     let imagePath = null;
     for (let ext of possibleExtensions) {
         const fullPath = `/produits/${productName}.${ext}`;
-        // Vérifie si l'image existe
+        
         const img = new Image();
         img.src = fullPath;
         if (img.width > 0 && img.height > 0) {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Typography, Grid, Paper, Snackbar, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios'; // Importez axios
+import axios from 'axios'; 
 import CategoryList from './CategoryList';
 import ProductList from './ProductList';
 import Cart from './Cart';
-import TicketPrinter from './TicketPrinter'; // Import du composant TicketPrinter
+import TicketPrinter from './TicketPrinter'; 
 import '../../styles/CategoryProductDisplay.css';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -24,26 +24,26 @@ function CategoryDisplay() {
     const [paymentMethods, setPaymentMethods] = useState(['Espèce', 'Chèque', 'Carte']);
 
     useEffect(() => {
-        // Récupérer les catégories depuis l'API
+        
         fetch('http://127.0.0.1:8000/categories')
             .then(response => response.json())
             .then(data => setCategories(data))
             .catch(error => console.error('Erreur lors de la récupération des catégories :', error));
 
-        // Récupérer les produits depuis l'API
+        
         fetch('http://127.0.0.1:8000/produits')
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error('Erreur lors de la récupération des produits :', error));
 
-        // Récupérer les moyens de paiement depuis l'API
+        
         fetch('http://127.0.0.1:8000/payment-methods')
             .then(response => response.json())
             .then(data => setPaymentMethods(data))
             .catch(error => console.error('Erreur lors de la récupération des moyens de paiement :', error));
     }, []);
 
-    // Fonction pour créer une notification
+    
     const createNotification = async (message) => {
         try {
             await axios.post('http://127.0.0.1:8000/notifications', { message, type: 'info' });
@@ -108,13 +108,13 @@ function CategoryDisplay() {
         setPaymentAmount(totalAmount);
     
         const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' '); // Format YYYY-MM-DD HH:MM:SS
+        const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' '); 
     
         const paymentData = {
             montant: totalAmount,
             date_paiement: formattedDate,
             produit_id: cart.map(product => product.id),
-            moyen_paiement: selectedPaymentMethod // Ajout du moyen de paiement
+            moyen_paiement: selectedPaymentMethod 
         };
     
         fetch('http://127.0.0.1:8000/paiements', {
@@ -135,7 +135,7 @@ function CategoryDisplay() {
             setPaymentAmount(0);
             setCart([]);
             setTotalPrice(0);
-            setPaymentSuccess(true); // Afficher le message de succès
+            setPaymentSuccess(true); 
             createNotification('Paiement enregistré !');
         })
         .catch(error => console.error('Erreur lors de l\'enregistrement du paiement:', error));
