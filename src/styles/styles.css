@@ -16,3 +16,8 @@
   background-position: center;
   background-repeat: no-repeat;
 } */
+.app-container {
+  background-image: url('../../public/arrerp.png'); /* ajuste le chemin selon ta structure de fichiers */
+  background-size: cover;
+  background-position: center;
+}
