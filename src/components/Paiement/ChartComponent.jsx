@@ -32,6 +32,9 @@ const ChartComponent = () => {
                 });
 
                 const chartData = Object.entries(revenueByDay).map(([date, montant]) => ({ date, montant }));
+                
+                // Tri des données par date
+                chartData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
                 setData(chartData);
                 setAvailableMonths(Array.from(monthsSet));

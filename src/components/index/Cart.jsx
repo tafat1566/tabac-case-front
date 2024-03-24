@@ -112,7 +112,7 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
   };
 
   return (
-    <Card elevation={3} style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <Card elevation={3} style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginRight: '-150px'}}>
       <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
         <ShoppingCartIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
         Panier

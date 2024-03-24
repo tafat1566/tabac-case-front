@@ -158,7 +158,7 @@ function CategoryDisplay() {
             </Snackbar>
             <Grid container spacing={3}>
                 <Grid item xs={4}>
-                    <Paper elevation={3} style={{ padding: '20px' }}>
+                    <Paper elevation={3} style={{ padding: '20px',marginLeft: '-250px',color: '#333' }}>
                     
 
                 <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>

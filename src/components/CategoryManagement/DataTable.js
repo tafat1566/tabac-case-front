@@ -4,7 +4,7 @@ import { BsPencil, BsTrash } from 'react-icons/bs';
 
 function DataTable({ categories, handleEdit, handleDelete }) {
     return (
-        <Table striped bordered hover>
+        <Table striped bordered hover style={{ backgroundColor: 'transparent' }}>
             <thead>
                 <tr>
                     <th>ID</th>

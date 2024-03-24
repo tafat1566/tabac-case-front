@@ -16,7 +16,7 @@ const categoryColors = [
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(0),
     borderRadius: theme.shape.borderRadius,
     transition: theme.transitions.create(['transform', 'box-shadow'], {
       duration: theme.transitions.duration.short,
@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden', 
     textOverflow: 'ellipsis', 
     whiteSpace: 'nowrap', 
-    fontSize: '1rem', 
+    fontSize: '0.8rem', 
+    fontFamily: 'Arial', 
+    marginTop: theme.spacing(1), 
   },
   categoryContainer: {
     backgroundColor: theme.palette.grey[100],
@@ -47,7 +49,7 @@ function CategoryList({ categories, handleCategoryClick }) {
 
   return (
     <Container maxWidth="lg" className={classes.categoryContainer}>
-      <Grid container spacing={3}>
+      <Grid container spacing={2.5}>
         {categories.map((category, index) => {
           const categoryName = category.nom;
           const colorIndex = index % categoryColors.length;
@@ -66,7 +68,7 @@ function CategoryList({ categories, handleCategoryClick }) {
           }
 
           return (
-            <Grid item xs={12} sm={6} md={4} key={category.id}>
+            <Grid item xs={9} sm={1} md={2} key={category.id}>
               <Card
                 className={classes.card}
                 style={{ backgroundColor: cardColor }}
@@ -78,7 +80,7 @@ function CategoryList({ categories, handleCategoryClick }) {
                       <Avatar alt={categoryName} src={categoryImageSrc} variant="rounded" style={{ width: '100px', height: '100px' }} />
                     )}
                   </Box>
-                  <Typography variant="h6" align="center" className={classes.categoryName}>
+                  <Typography variant="h6" align="center" className={classes.categoryName} title={categoryName} style={{fontWeight: 'bold'}} >
                     {categoryName}
                   </Typography>
                 </CardContent>
