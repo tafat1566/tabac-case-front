@@ -31,10 +31,17 @@ function Header() {
   return (
     <div className="header-container">
       <Navbar expand="lg" className="navbar-expand" style={{ backgroundColor: 'f0f0f0' }}>
-        <Navbar.Brand href="/index">TabacEase</Navbar.Brand>
+        <Navbar.Brand href="/index">
+          <img
+            src="/logg.png"
+            height="70"
+            className="d-inline-block align-top"
+            alt="Tabac Logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
         <Navbar.Collapse id="navbarSupportedContent">
-          <Nav className="mr-auto">
+          <Nav className="me-auto">
             <NavLinkWithTooltip to="/productsss" tooltip="Gestion des Produits">Gestion Produits</NavLinkWithTooltip>
             <NavLinkWithTooltip to="/categories" tooltip="Gestion des Catégories">Gestion Catégories</NavLinkWithTooltip>
             <NavLinkWithTooltip to="/fournisseur" tooltip="Gestion des Fournisseurs">Gestion Fournisseur</NavLinkWithTooltip>
@@ -49,7 +56,7 @@ function Header() {
             </NavDropdown>
             <Nav.Link href="#" disabled>Désactivé</Nav.Link>
           </Nav>
-          <Nav>
+          <Nav className="ml-auto">
             <Nav.Link onClick={() => setShowNotifications(true)}>
               <FontAwesomeIcon icon={faBell} style={{ color: 'green' }} />
               <span className="notification-badge">{unreadNotifications.length}</span>
@@ -67,7 +74,6 @@ function Header() {
     </div>
   );
 }
-
 
 function NavLinkWithTooltip({ to, tooltip, children }) {
   return (

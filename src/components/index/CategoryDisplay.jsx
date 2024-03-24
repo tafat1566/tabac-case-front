@@ -196,7 +196,7 @@ function CategoryDisplay() {
                     />
                     <Grid container justifyContent="flex-end" alignItems="center" style={{ marginTop: '20px' }}>
     <Grid item>
-    <FormControl style={{ marginTop: '20px', position: 'absolute', top: '120px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>            <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
+    <FormControl style={{ marginTop: '20px', position: 'absolute', top: '150px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>            <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
             <Select
                 labelId="payment-method-label"
                 id="payment-method-select"

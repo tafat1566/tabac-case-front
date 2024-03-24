@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const ChartComponent = () => {
     const [data, setData] = useState([]);
@@ -9,116 +9,92 @@ const ChartComponent = () => {
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
 
-    const fetchData = async () => {
-        try {
-           
-            const response = await axios.get(`http://127.0.0.1:8000/paiements?year=${selectedYear}`);
-
-            
-            const revenueByDay = {};
-            const monthsSet = new Set();
-
-            response.data.forEach(paiement => {
-                const date = new Date(paiement.date_paiement);
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const day = date.getDate();
-                const montant = parseFloat(paiement.montant);
-
-                if ((!selectedMonth || month === selectedMonth) && (!selectedYear || year === selectedYear)) {
-                    const key = `${month}/${day}`;
-                    if (revenueByDay[key]) {
-                        revenueByDay[key] += montant;
-                    } else {
-                        revenueByDay[key] = montant;
-                    }
-                }
-                monthsSet.add(month);
-            });
-
-           
-            const chartData = Object.keys(revenueByDay).map(date => ({
-                date,
-                montant: revenueByDay[date]
-            }));
-
-            
-            setData(chartData);
-            setAvailableMonths(Array.from(monthsSet));
-        } catch (error) {
-            console.error('Erreur lors de la récupération des données :', error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/paiements?year=${selectedYear}`);
+
+                const revenueByDay = {};
+                const monthsSet = new Set();
+
+                response.data.forEach(paiement => {
+                    const date = new Date(paiement.date_paiement);
+                    const month = date.toLocaleString('default', { month: 'long' });
+                    const day = date.getDate();
+                    const montant = parseFloat(paiement.montant);
+                    const color = getColor(montant);
+
+                    if ((!selectedMonth || month === selectedMonth) && (!selectedYear || date.getFullYear() === selectedYear)) {
+                        const key = `${day} ${month}`;
+                        revenueByDay[key] = (revenueByDay[key] || 0) + montant;
+                    }
+                    monthsSet.add(month);
+                });
+
+                const chartData = Object.entries(revenueByDay).map(([date, montant]) => ({ date, montant }));
+
+                setData(chartData);
+                setAvailableMonths(Array.from(monthsSet));
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données :', error);
+            }
+        };
+
         fetchData();
     }, [selectedMonth, selectedYear]);
 
     const handleMonthChange = (e) => {
-        setSelectedMonth(parseInt(e.target.value));
+        setSelectedMonth(e.target.value);
     };
 
     const handleYearChange = (e) => {
         setSelectedYear(parseInt(e.target.value));
     };
 
+    const getColor = (montant) => {
+        if (montant < 100) {
+            return '#ff7f0e'; // orange
+        } else if (montant < 200) {
+            return '#1f77b4'; // bleu
+        } else {
+            return '#2ca02c'; // vert
+        }
+    };
+
     return (
         <div style={{ width: '100%', height: 400 }}>
-            <h2 style={{ textAlign: 'center' }}>Variation du chiffre d'affaires par jour</h2>
+            <h2 style={{ textAlign: 'center', fontFamily: 'Georgia, serif', fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}>Variation du chiffre d'affaires par jour</h2>
             <Form>
-                <Row>
+                <Row className="mb-3">
                     <Col>
-                        <Form.Control as="select" onChange={handleMonthChange}>
+                        <Form.Select onChange={handleMonthChange} style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', color: '#555', borderRadius: '8px', border: '1px solid #ccc' }}>
                             <option value="">Tous les mois</option>
-                            {availableMonths.map(month => (
-                                <option key={month} value={month}>{`Mois ${month}`}</option>
+                            {availableMonths.map((month, index) => (
+                                <option key={index} value={month}>{`Mois de ${month}`}</option>
                             ))}
-                        </Form.Control>
+                        </Form.Select>
                     </Col>
                     <Col>
-                        <Form.Control as="select" onChange={handleYearChange}>
+                        <Form.Select onChange={handleYearChange} style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', color: '#555', borderRadius: '8px', border: '1px solid #ccc' }}>
                             <option value="">Toutes les années</option>
-                            <option value={2024}>2024</option> {}
-                        </Form.Control>
+                            <option value={2024}>2024</option>
+                        </Form.Select>
                     </Col>
-                    <Col>
-                        
-                    </Col>
-                    <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
-                        <Col>
-                        
-                        </Col>
                 </Row>
             </Form>
             <ResponsiveContainer>
-                <LineChart data={data}>
+                <BarChart data={data} animationBegin={500}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="montant" stroke="#ff0000" activeDot={{ r: 8 }} />
-                </LineChart>
+                    <XAxis dataKey="date" style={{ fontFamily: 'Georgia, serif', fontSize: '0.9rem', color: '#555' }} />
+                    <YAxis style={{ fontFamily: 'Georgia, serif', fontSize: '0.9rem', color: '#555' }} />
+                    <Tooltip contentStyle={{ fontFamily: 'Georgia, serif', fontSize: '0.9rem', color: '#555', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #ccc' }} />
+                    <Legend iconSize={16} wrapperStyle={{ fontFamily: 'Georgia, serif', fontSize: '0.9rem', color: '#555' }} />
+                    <Bar dataKey="montant" fill="#4e79a7">
+                        {data.map((entry, index) => (
+                            <Bar key={index} fill={entry.color} label={{ position: 'top', content: `€${entry.montant.toFixed(2)}` }} />
+                        ))}
+                    </Bar>
+                </BarChart>
             </ResponsiveContainer>
         </div>
     );
