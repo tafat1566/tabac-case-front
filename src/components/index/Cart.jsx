@@ -8,15 +8,20 @@ import {
   Typography,
   Button,
   Avatar,
+  TextField,
+  Grid,
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import jsPDF from 'jspdf';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import NumericKeyboard from './NumericKeyboard';
+import UpdatePaiementModal from './UpdatePaymentModal';
 function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMethods }) {
   const [showTicket, setShowTicket] = useState(false);
   const [printingStatus, setPrintingStatus] = useState('');
   const [showNotification, setShowNotification] = useState(false);
+  const [amountGiven, setAmountGiven] = useState('');
+  const [changeToGive, setChangeToGive] = useState('');
 
   const handlePrintTicket = async () => {
     try {
@@ -111,6 +116,27 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
     return imageUrl;
   };
 
+  const handleKeyPress = (value) => {
+    if (value === 'C') {
+      setAmountGiven('');
+    } else if (value === '.') {
+      if (!amountGiven.includes('.')) {
+        setAmountGiven(amountGiven + value);
+      }
+    } else {
+      setAmountGiven(amountGiven + value);
+    }
+    calculateChange(value);
+  };
+
+  const calculateChange = (value) => {
+    const amountGivenFloat = parseFloat(amountGiven + value);
+    if (!isNaN(amountGivenFloat)) {
+      const change = amountGivenFloat - totalPrice;
+      setChangeToGive(change.toFixed(2));
+    }
+  };
+
   return (
     <Card elevation={3} style={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '10px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginRight: '-150px'}}>
       <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold' }}>
@@ -134,8 +160,12 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
           </Slide>
         ))}
       </List>
+      
       <Typography variant="h6" style={{ marginTop: '20px', color: '#333', fontWeight: 'bold' }}>
         Total : {totalPrice.toFixed(2)} €
+      </Typography>
+      <Typography variant="h6" style={{ marginTop: '20px', color: changeToGive < 0 ? 'red' : 'green', fontWeight: 'bold' }}>
+        Monnaie à rendre : {changeToGive} €
       </Typography>
       <Button
         variant="contained"
@@ -159,6 +189,17 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
           Le ticket a été imprimé avec succès
         </div>
       )}
+
+      <TextField
+        label="Montant donné par le client"
+        variant="outlined"
+        type="number"
+        value={amountGiven}
+        onChange={(e) => setAmountGiven(e.target.value)}
+        style={{ marginTop: '20px', marginBottom: '20px', width: '100%' }}
+      />
+      <NumericKeyboard handleKeyPress={handleKeyPress} />
+      <UpdatePaiementModal></UpdatePaiementModal>
     </Card>
   );
 }
