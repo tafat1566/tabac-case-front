@@ -1,5 +1,8 @@
+
+file:///home/tafat/Vid%C3%A9os/Captures%20vid%C3%A9o/Capture%20vid%C3%A9o%20du%2025-03-2024%2019:40:49.webm
+
 ![Capture d’écran du 2024-03-25 19-45-04](https://github.com/tafat1566/tabac-case-front/assets/62217294/0c637d10-7616-4401-ab02-f0f2e8365615)
-<<<<<<< HEAD
+
 ```markdown
 # TabacEase-Back
 
