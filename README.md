@@ -134,5 +134,6 @@ http://localhost:3000
 
 Vous devriez maintenant pouvoir utiliser l'application TabacEase-Front pour gérer les opérations liées à un bureau de tabac.
 ``` 
+![Interface de Taba](public/taba_interface.png)
 
 >>>>>>> origin/main
