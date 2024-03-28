@@ -2,7 +2,9 @@ import React from 'react';
 import { Button, Table, Badge } from 'react-bootstrap';
 import { BsPencil, BsTrash } from 'react-icons/bs'; 
 
-function ProductTable({ products, setProducts, handleEdit, handleDelete, categories }) {
+function ProductTable({ products, setProducts, handleEdit, 
+    handleDelete, categories,showDeleteNotification,handleShow
+ }) {
     
     const getCategoryNameById = (categoryId) => {
         const category = categories.find(category => category.id === categoryId);
@@ -34,12 +36,18 @@ function ProductTable({ products, setProducts, handleEdit, handleDelete, categor
                             </Badge>
                         </td>
                         <td>
-                            <Button variant="info" size="sm" onClick={() => handleEdit(product.id)}>
+                            <Button variant="info" size="sm" onClick={handleShow}>
                                 <BsPencil /> {}
                             </Button>{' '}
+
                             <Button variant="danger" size="sm" onClick={() => handleDelete(product.id)}>
                                 <BsTrash /> {}
                             </Button>
+                            {showDeleteNotification && (
+                                    <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#ff002b', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                                        Le produit a été supprimé avec succès
+                                    </div>
+                                )}
                         </td>
                     </tr>
                 ))}

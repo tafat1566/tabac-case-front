@@ -22,7 +22,7 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
   const [showNotification, setShowNotification] = useState(false);
   const [amountGiven, setAmountGiven] = useState('');
   const [changeToGive, setChangeToGive] = useState('');
-
+  const [paymentSaved, setPaymentSaved] = useState(false);
   const handlePrintTicket = async () => {
     try {
       const params = new URLSearchParams({
@@ -96,6 +96,7 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
   const handleSavePayment = () => {
     savePayment();
     setShowTicket(true);
+    setPaymentSaved(true); 
   };
 
   const showSuccessNotification = () => {
@@ -199,7 +200,7 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
         style={{ marginTop: '20px', marginBottom: '20px', width: '100%' }}
       />
       <NumericKeyboard handleKeyPress={handleKeyPress} />
-      <UpdatePaiementModal></UpdatePaiementModal>
+      {paymentSaved && <UpdatePaiementModal style={{ marginTop: '20px', marginRight: '0px', textTransform: 'none', fontWeight: 'bold' }}/>}
     </Card>
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Typography, Grid, Paper, Snackbar, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, Typography, Grid, Paper, Snackbar, Select, MenuItem, FormControl, InputLabel, TextField } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios'; 
 import CategoryList from './CategoryList';
@@ -7,8 +7,11 @@ import ProductList from './ProductList';
 import Cart from './Cart';
 import TicketPrinter from './TicketPrinter'; 
 import '../../styles/CategoryProductDisplay.css';
+import '../../styles/styles.css';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategoryIcon from '@mui/icons-material/Category';
+import Scrollbar from 'react-perfect-scrollbar';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 function CategoryDisplay() {
     const [categories, setCategories] = useState([]);
@@ -22,6 +25,8 @@ function CategoryDisplay() {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const [paymentMethods, setPaymentMethods] = useState(['Espèce', 'Chèque', 'Carte']);
+    const [searchTerm, setSearchTerm] = useState('');
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         
@@ -131,7 +136,7 @@ function CategoryDisplay() {
             return response.json();
         })
         .then(data => {
-            console.log('Paiement enregistré avec succès:', data);
+            console.log('Paiement enregistré avec succès:', data            );
             setPaymentAmount(0);
             setCart([]);
             setTotalPrice(0);
@@ -140,6 +145,15 @@ function CategoryDisplay() {
         })
         .catch(error => console.error('Erreur lors de l\'enregistrement du paiement:', error));
     };
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Filtrer les produits par nom en fonction du terme de recherche
+    const filteredProducts = products.filter(product =>
+        product.nom.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="container">
@@ -159,32 +173,41 @@ function CategoryDisplay() {
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                     <Paper elevation={3} style={{ padding: '20px',marginLeft: '-250px',color: '#333' }}>
-                    
-
-                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
-                    <CategoryIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                    Catégories
-                </Typography>
-                <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
+                        <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
+                            <CategoryIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+                            Catégories
+                        </Typography>
+                        <Scrollbar style={{ height: 'calc(100vh - 250px)', overflowY: 'auto' }} ref={scrollRef}>
+                            <CategoryList categories={categories} handleCategoryClick={handleCategoryClick} />
+                        </Scrollbar>
                     </Paper>
                 </Grid>
                 <Grid item xs={4}>
-                
-                <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
-                    <StorefrontIcon style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                    Produits
-                </Typography>
-
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '20px', color: '#333', fontWeight: 'bold', textAlign: 'center' }}>
+                        {selectedCategory && (
+                            <span> {categories.find(category => category.id === selectedCategory)?.nom}</span>
+                        )}
+                    </Typography>
+                    {/* Champ de recherche */}
+                    <TextField
+                        label="Rechercher un produit"
+                        variant="outlined"
+                        fullWidth
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        style={{ marginBottom: '20px' }}
+                    />
+                 <Scrollbar style={{ height: 'calc(100vh - 250px)', overflowY: 'auto' }} ref={scrollRef}>
 
                     <ProductList
-                        products={products}
+                        products={filteredProducts} // Utiliser les produits filtrés
                         selectedCategory={selectedCategory}
                         productsVisible={productsVisible}
                         selectedProduct={selectedProduct}
                         handleProductSelect={handleProductSelect}
                         handleAddToCart={handleAddToCart}
-
                     />
+                    </Scrollbar>
                 </Grid>
                 <Grid item xs={4}>
                     <Cart
@@ -192,34 +215,33 @@ function CategoryDisplay() {
                         totalPrice={totalPrice}
                         handleRemoveFromCart={handleRemoveFromCart}
                         savePayment={savePayment}
-                        paymentMethods ={paymentMethods}
+                        paymentMethods={paymentMethods}
                     />
                     <Grid container justifyContent="flex-end" alignItems="center" style={{ marginTop: '20px' }}>
-    <Grid item>
-    <FormControl style={{ marginTop: '20px', position: 'absolute', top: '150px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>            <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
-            <Select
-                labelId="payment-method-label"
-                id="payment-method-select"
-                value={selectedPaymentMethod}
-                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                style={{ width: '100%' }}
-            >
-                <MenuItem value="">
-                    
-                </MenuItem>
-                {paymentMethods.map((method, index) => (
-                    <MenuItem key={index} value={method}>{method}</MenuItem>
-                ))}
-            </Select>
-        </FormControl>
-    </Grid>
-</Grid>
+                        <Grid item>
+                            <FormControl style={{ marginTop: '20px', position: 'absolute', top: '150px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                                <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
+                                <Select
+                                    labelId="payment-method-label"
+                                    id="payment-method-select"
+                                    value={selectedPaymentMethod}
+                                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                                    style={{ width: '100%' }}
+                                >
+                                    <MenuItem value=""></MenuItem>
+                                    {paymentMethods.map((method, index) => (
+                                        <MenuItem key={index} value={method}>{method}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
-            {}
             <TicketPrinter />
         </div>
     );
 }
 
 export default CategoryDisplay;
+

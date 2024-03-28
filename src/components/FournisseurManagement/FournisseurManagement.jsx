@@ -9,6 +9,10 @@ function FournisseurManagement() {
     const [showModal, setShowModal] = useState(false);
     const [selectedFournisseur, setSelectedFournisseur] = useState(null);
     const [formData, setFormData] = useState({ nom: '', adresse: '', email: '', telephone: '' });
+    const [showCreateNotification, setShowCreateNotification] = useState(false);
+    const [showUpdateNotification, setShowUpdateNotification] = useState(false);
+    const [showDeleteNotification, setShowDeleteNotification] = useState(false);
+
 
     useEffect(() => {
         fetchFournisseurs();
@@ -50,12 +54,18 @@ function FournisseurManagement() {
         try {
             if (selectedFournisseur) {
                 await axios.put(`http://127.0.0.1:8000/fournisseurs/${selectedFournisseur.id}`, formData);
+                setShowUpdateNotification(true);
+                setTimeout(() => setShowUpdateNotification(false), 5000);
+                createNotification('Fournisseur ajouté succès !');
             } else {
                 await axios.post('http://127.0.0.1:8000/fournisseurs', formData);
+                setShowCreateNotification(true);
+                setTimeout(() => setShowCreateNotification(false), 5000);
+                createNotification('Fournisseur modifié avec succès !');
             }
             fetchFournisseurs();
             setShowModal(false);
-            createNotification('Fournisseur ajouté/modifié avec succès !');
+            
         } catch (error) {
             console.error('Error creating/editing fournisseur:', error);
         }
@@ -67,6 +77,8 @@ function FournisseurManagement() {
                 await axios.delete(`http://127.0.0.1:8000/fournisseurs/${fournisseurId}`);
                 fetchFournisseurs();
                 createNotification('Fournisseur supprimé avec succès !');
+                setShowDeleteNotification(true);
+            setTimeout(() => setShowDeleteNotification(false), 5000);
             } catch (error) {
                 console.error('Error deleting fournisseur:', error);
             }
@@ -76,6 +88,11 @@ function FournisseurManagement() {
     return (
         <>
             <Button variant="success" onClick={() => { setSelectedFournisseur(null); setFormData({ nom: '', adresse: '', email: '', telephone: '' }); setShowModal(true); }}>Add Fournisseur</Button>
+            {showCreateNotification && (
+                                    <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#4caf50', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                                    Le fournisseur a été crée avec succès
+                                    </div>
+                                )}
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -99,9 +116,19 @@ function FournisseurManagement() {
                                 <Button variant="info" size="sm" onClick={() => handleEdit(fournisseur)}>
                                     <BsPencil />
                                 </Button>
+                                {showUpdateNotification && (
+                                    <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#4caf50', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                                    Le fournisseur a été modifié avec succès
+                                    </div>
+                                )}
                                 <Button variant="danger" size="sm" onClick={() => handleDelete(fournisseur.id)}>
                                     <BsTrash />
                                 </Button>
+                                {showDeleteNotification && (
+                            <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#ff002b', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                            Le fournisseur a été supprimé avec succès
+                            </div>
+          )}
                             </td>
                         </tr>
                     ))}

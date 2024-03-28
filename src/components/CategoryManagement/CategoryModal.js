@@ -12,7 +12,7 @@ const theme = createTheme({
   },
 });
 
-function CategoryModal({ show, handleClose, handleSubmit, formData, handleChange, title, buttonLabel }) {
+function CategoryModal({ show, handleClose, handleSubmit, formData, handleChange, title, buttonLabel,showUpdateNotification }) {
     return (
         <ThemeProvider theme={theme}>
             <Modal show={show} onHide={handleClose}>

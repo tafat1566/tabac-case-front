@@ -10,6 +10,9 @@ function CategoryManagement() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState({});
     const [formData, setFormData] = useState({ nom: '', description: '' });
+    const [showCreateNotification, setShowCreateNotification] = useState(false);
+    const [showUpdateNotification, setShowUpdateNotification] = useState(false);
+    const [showDeleteNotification, setShowDeleteNotification] = useState(false);
 
     useEffect(() => {
         fetchCategories();
@@ -54,6 +57,9 @@ function CategoryManagement() {
             fetchCategories();
             setShowCreateModal(false);
             createNotification('New category created: ' + formData.nom);
+            setShowCreateNotification(true);
+            setTimeout(() => setShowCreateNotification(false), 5000);
+            
         } catch (error) {
             console.error('Error creating category:', error);
         }
@@ -66,6 +72,8 @@ function CategoryManagement() {
             fetchCategories();
             setShowEditModal(false);
             createNotification('Category edited: ' + formData.nom);
+            setShowUpdateNotification(true);
+            setTimeout(() => setShowUpdateNotification(false), 5000);
         } catch (error) {
             console.error('Error editing category:', error);
         }
@@ -77,6 +85,8 @@ function CategoryManagement() {
                 await axios.delete(`http://127.0.0.1:8000/categories/${categoryId}`);
                 fetchCategories();
                 createNotification('Category deleted');
+                setShowDeleteNotification(true);
+            setTimeout(() => setShowDeleteNotification(false), 5000);
             } catch (error) {
                 console.error('Error deleting category:', error);
             }
@@ -94,10 +104,17 @@ function CategoryManagement() {
     return (
         <>
             <Button variant="success" onClick={handleCreate}>Add Category</Button>
+            {showCreateNotification && (
+                                    <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#4caf50', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                                    La categorie a été crrée avec succès
+                                    </div>
+                                )}
             <DataTable
                 categories={categories}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                showUpdateNotification={showUpdateNotification}
+                showDeleteNotification={showDeleteNotification}
             />
 
             <CategoryModal
@@ -105,7 +122,9 @@ function CategoryManagement() {
                 handleClose={handleCloseCreate}
                 handleSubmit={handleSubmitCreate}
                 formData={formData}
+                showUpdateNotification={showUpdateNotification}
                 handleChange={handleChange}
+                showDeleteNotification={showDeleteNotification}
                 title="Create Category"
                 buttonLabel="Save"
             />
@@ -115,7 +134,9 @@ function CategoryManagement() {
                 handleClose={handleCloseEdit}
                 handleSubmit={handleSubmitEdit}
                 formData={formData}
+                showUpdateNotification={showUpdateNotification}
                 handleChange={handleChange}
+                showDeleteNotification={showDeleteNotification}
                 title="Edit Category"
                 buttonLabel="Save"
             />

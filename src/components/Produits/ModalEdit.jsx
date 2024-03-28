@@ -2,14 +2,15 @@ import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { FiSave, FiX } from 'react-icons/fi'; 
 
-function ProductModal({ show, handleClose, handleSubmit, formData, handleChange, categories, showUpdateNotification }) {
+function ModalEdit({ show, handleClose, handleSubmit, formData, 
+    handleChange, categories, showUpdateNotification,handleEdit, products}) {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>{formData.id ? 'Modifier un produit' : 'Ajouter un produit'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleEdit(products.id)}>
                     <Form.Group controlId="nom">
                         <Form.Label>Nom du produit</Form.Label>
                         <Form.Control type="text" name="nom" value={formData.nom || ''} onChange={handleChange} placeholder="Entrez le nom du produit" />
@@ -41,7 +42,7 @@ function ProductModal({ show, handleClose, handleSubmit, formData, handleChange,
                     </Form.Group>
 
                     <Button variant="success" type="submit">
-                        <FiSave /> Enregistrer
+                        <FiSave /> modifier
                     </Button>
                     {showUpdateNotification && (
                         <div style={{ position: 'fixed', top: '20px', right: '20px', backgroundColor: '#4caf50', color: '#ffffff', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
@@ -59,4 +60,4 @@ function ProductModal({ show, handleClose, handleSubmit, formData, handleChange,
     );
 }
 
-export default ProductModal;
+export default ModalEdit;
