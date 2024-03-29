@@ -1,6 +1,11 @@
-<<<<<<< HEAD
+
+
+
+![Capture d’écran du 2024-03-25 19-45-04](https://github.com/tafat1566/tabac-case-front/assets/62217294/0c637d10-7616-4401-ab02-f0f2e8365615)
+
 ```markdown
 # TabacEase-Back
+
 
 ## Description
 
