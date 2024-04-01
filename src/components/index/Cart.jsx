@@ -16,6 +16,7 @@ import jsPDF from 'jspdf';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import NumericKeyboard from './NumericKeyboard';
 import UpdatePaiementModal from './UpdatePaymentModal';
+import { BsFillPrinterFill } from "react-icons/bs";
 function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMethods }) {
   const [showTicket, setShowTicket] = useState(false);
   const [printingStatus, setPrintingStatus] = useState('');
@@ -180,7 +181,7 @@ function Cart({ cart, totalPrice, handleRemoveFromCart, savePayment, paymentMeth
       {showTicket && (
         <>
           <Button variant="contained" color="secondary" onClick={handlePrintTicket} style={{ marginTop: '20px', textTransform: 'none', fontWeight: 'bold' }}>
-            Imprimer le Ticket
+          <BsFillPrinterFill />
           </Button>
           {printingStatus && <Typography style={{ marginTop: '10px', color: printingStatus.includes('succès') ? 'green' : 'red' }}>{printingStatus}</Typography>}
         </>

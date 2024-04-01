@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Home/Header';
-import ProductManagement from './components/Produits/ProductManagement';
-import ProductSender from './components/Produits/ProductSender';
 import CategoryDisplay from './components/index/CategoryDisplay';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CategoryManagement from './components/CategoryManagement/CategoryManagement';
@@ -14,6 +12,9 @@ import Typography from '@mui/material/Typography';
 import './styles/styles.css';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import UserManagement from './components/User/UserManagement';
+import ProductComponent from './components/Products/ProductComponent';
+import LivraisonTable from './components/LivraisonManagement/LivraisonTable';
 
 const theme = createTheme({
   palette: {
@@ -48,26 +49,24 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="app-container">
         <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-        <div style={{ textAlign: 'center', color: '#100336', fontSize: '24px', marginBottom: '20px' }}>
-          <Typography variant="h5">
-            Date et heure actuelle : {new Date().toLocaleString()}
-          </Typography>
-        </div>
+        
        
         <Router>
           <Routes>
             {isLoggedIn ? (
               <>
                 <Route path="/" element={<CategoryDisplay />} />
-                <Route path="/products" element={<ProductManagement />} />
-                <Route path="/productsss" element={<ProductSender />} />
-                <Route path="/index" element={<CategoryDisplay />} />
                 <Route path="/categories" element={<CategoryManagement />} />
                 <Route path="/fournisseur" element={<FournisseurManagement />} />
                 <Route path="/chiffre_d_affaire" element={<ChartComponent />} />
                 <Route path="/chiffre_d_affaire_d" element={<ChiffreAffaireIntervalle />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route path="/register" element={<RegisterForm />} />
+                <Route path="/usermanagement" element={<UserManagement />} />
+                <Route path="/produits" element={<ProductComponent />} />
+                <Route path="/livraison" element={<LivraisonTable />} />
+              
+                
               </>
             ) : (
               <Route path="/" element={<LoginForm onLoginSuccess={handleLogin} />} />

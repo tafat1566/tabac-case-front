@@ -50,7 +50,7 @@ const UpdatePaiementModal = () => {
       createNotification('Paiement updated successfully');
       setShowModal(false);
       setShowUpdateNotification(true);
-      setTimeout(() => setShowUpdateNotification(false), 5000); // Hide notification after 5 seconds
+      setTimeout(() => setShowUpdateNotification(false), 5000); 
     } catch (error) {
       console.error('Error updating paiement:', error);
     }
@@ -69,7 +69,7 @@ const UpdatePaiementModal = () => {
       createNotification('Paiement deleted successfully');
       setShowModal(false);
       setShowDeleteNotification(true);
-      setTimeout(() => setShowDeleteNotification(false), 5000); // Hide notification after 5 seconds
+      setTimeout(() => setShowDeleteNotification(false), 5000); 
     } catch (error) {
       console.error('Error deleting paiement:', error);
     }
@@ -129,7 +129,7 @@ const UpdatePaiementModal = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            {/* Ajoutez ici des champs pour les produits, en fonction de la structure des données de votre API */}
+            {}
           </Form>
         </Modal.Body>
         <Modal.Footer>

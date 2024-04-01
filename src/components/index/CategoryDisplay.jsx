@@ -150,7 +150,7 @@ function CategoryDisplay() {
         setSearchTerm(event.target.value);
     };
 
-    // Filtrer les produits par nom en fonction du terme de recherche
+    
     const filteredProducts = products.filter(product =>
         product.nom.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -188,7 +188,7 @@ function CategoryDisplay() {
                             <span> {categories.find(category => category.id === selectedCategory)?.nom}</span>
                         )}
                     </Typography>
-                    {/* Champ de recherche */}
+                    {}
                     <TextField
                         label="Rechercher un produit"
                         variant="outlined"
@@ -200,7 +200,7 @@ function CategoryDisplay() {
                  <Scrollbar style={{ height: 'calc(100vh - 250px)', overflowY: 'auto' }} ref={scrollRef}>
 
                     <ProductList
-                        products={filteredProducts} // Utiliser les produits filtrés
+                        products={filteredProducts} 
                         selectedCategory={selectedCategory}
                         productsVisible={productsVisible}
                         selectedProduct={selectedProduct}
@@ -219,7 +219,7 @@ function CategoryDisplay() {
                     />
                     <Grid container justifyContent="flex-end" alignItems="center" style={{ marginTop: '20px' }}>
                         <Grid item>
-                            <FormControl style={{ marginTop: '20px', position: 'absolute', top: '150px', right: '120px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                            <FormControl style={{ marginTop: '20px', position: 'absolute', top: '150px', right: '130px', minWidth: '150px', backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '5px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
                                 <InputLabel id="payment-method-label">Moyen de paiement</InputLabel>
                                 <Select
                                     labelId="payment-method-label"

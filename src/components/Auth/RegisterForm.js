@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/RegisterForm.module.css'; // Importer le module CSS
+import styles from '../../styles/RegisterForm.module.css'; 
 
 function RegisterForm() {
   const [firstName, setFirstName] = useState('');
@@ -23,10 +23,10 @@ function RegisterForm() {
         email,
         password,
       });
-      // Vérifiez la réponse de l'API et affichez un message de succès ou d'erreur
+      
       if (response.data.success) {
         console.log('Inscription réussie');
-        // Redirection vers la page de connexion ou autre action
+        
       } else {
         setError(response.data.message);
       }

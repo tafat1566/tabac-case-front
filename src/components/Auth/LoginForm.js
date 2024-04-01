@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/LoginForm.module.css'; // Import CSS module
+import styles from '../../styles/LoginForm.module.css'; 
 
 function LoginForm({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
@@ -14,9 +14,9 @@ function LoginForm({ onLoginSuccess }) {
         email: email,
         password: password
       });
-      // Vérifiez la réponse de l'API
+      
       if (response.data.message === 'Authentification réussie') {
-        // Mise à jour de l'état de connexion et stockage de l'utilisateur (optionnel)
+        
         onLoginSuccess(true);
         localStorage.setItem('user', JSON.stringify(response.data.user));
       } else {

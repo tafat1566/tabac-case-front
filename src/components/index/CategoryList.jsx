@@ -4,15 +4,29 @@ import { makeStyles } from '@mui/styles';
 
 
 const categoryColors = [
-  '#FFD700', 
-  '#FFA07A', 
-  '#87CEFA', 
-  '#98FB98', 
-  '#FF69B4', 
-  '#20B2AA', 
-  '#9370DB', 
-  '#FF6347', 
+
+  '#FF8C00',  // Orange foncé
+  '#ADFF2F',  // Vert citron
+  '#BA55D3',  // Violet moyen orchidée
+  '#32CD32',  // Vert lime
+  '#7B68EE',  // Bleu moyen violet
+  '#FF4500',  // Rouge oranger
+  '#40E0D0',  // Turquoise
+  '#8A2BE2',  // Bleu-violet
+  '#B22222',  // Rouge brique
+  '#4682B4',  // Bleu acier
+  '#FF1493',  // Rose profond
+  '#FFD700',  // Or
+  '#FFA07A',  // Saumon clair
+  '#87CEFA',  // Bleu ciel
+  '#98FB98',  // Vert pâle
+  '#FF69B4',  // Rose vif
+  '#20B2AA',  // Vert turquoise
+  '#9370DB',  // Violet moyen
+  '#FF6347',  // Rouge corail
+  '#00FFFF',  // Cyan
 ];
+
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -65,6 +79,11 @@ function CategoryList({ categories, handleCategoryClick }) {
               categoryImageSrc = imageUrl;
               break;
             }
+          }
+
+          
+          if (!categoryImageSrc) {
+            categoryImageSrc = '/CategorieImage/logg.png';
           }
 
           return (
